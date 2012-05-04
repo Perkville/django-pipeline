@@ -83,7 +83,7 @@ class CompressedJSNode(CompressedMixin, template.Node):
         template_name = package.template_name or "pipeline/js.html"
         context = package.extra_context
         context.update({
-            'type': guess_type(path, 'text/javascript'),
+            'type': 'text/javascript',
             'url': staticfiles_storage.url(path)
         })
         return render_to_string(template_name, context)
