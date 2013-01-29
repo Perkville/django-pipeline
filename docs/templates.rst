@@ -13,7 +13,7 @@ To use your javascript templates, just add them to your ``PIPELINE_JS`` group ::
         'js/application.js',
         'js/templates/**/*.jst',
       ),
-      'output_filename': 'js/application.r?.js'
+      'output_filename': 'js/application.js'
     }
   }
 
@@ -26,7 +26,7 @@ For example, if you have the following template ``js/templates/photo/detail.jst`
    </div>
   </div>
 
-They will be available from your javascript code via window.JST ::
+It will be available from your javascript code via window.JST ::
 
   JST.photo_detail({ src:"images/baby-panda.jpg", caption:"A baby panda is born" });
 

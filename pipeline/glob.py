@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import os
 import re
 import fnmatch
@@ -23,7 +25,12 @@ def iglob(pathname):
 
     """
     if not has_magic(pathname):
-        yield pathname
+        try:
+            if default_storage.exists(pathname):
+                yield pathname
+        except NotImplementedError:
+            # Being optimistic
+            yield pathname
         return
     dirname, basename = os.path.split(pathname)
     if not dirname:
@@ -51,7 +58,9 @@ def glob1(dirname, pattern):
     try:
         directories, files = default_storage.listdir(dirname)
         names = directories + files
-    except NotImplementedError:
+    except Exception:
+        # We are not sure that dirname is a real directory
+        # and storage implementations are really exotic.
         return []
     if pattern[0] != '.':
         names = filter(lambda x: x[0] != '.', names)

@@ -1,4 +1,6 @@
-import os.path
+from __future__ import unicode_literals
+
+from os.path import dirname
 
 from pipeline.conf import settings
 from pipeline.compilers import SubProcessCompiler
@@ -8,13 +10,13 @@ class SASSCompiler(SubProcessCompiler):
     output_extension = 'css'
 
     def match_file(self, filename):
-        return filename.endswith('.scss')
+        return filename.endswith(('.scss', '.sass'))
 
-    def compile_file(self, content, path):
-        command = "%s --scss %s %s" % (
+    def compile_file(self, infile, outfile, outdated=False, force=False):
+        command = "%s %s --update %s:%s" % (
             settings.PIPELINE_SASS_BINARY,
             settings.PIPELINE_SASS_ARGUMENTS,
-            path
+            infile,
+            outfile
         )
-        cwd = os.path.dirname(path)
-        return self.execute_command(command, cwd=cwd)
+        return self.execute_command(command, cwd=dirname(infile))
