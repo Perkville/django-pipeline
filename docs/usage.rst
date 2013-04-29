@@ -38,12 +38,21 @@ Collect static
 
 Pipeline integrates with staticfiles, you just need to setup ``STATICFILES_STORAGE`` to ::
 
-    STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+    STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 Then when you run ``collectstatic`` command, your CSS and your javascripts will be compressed in the same time ::
 
-    $ python oslo/manage.py collectstatic
+    $ python manage.py collectstatic
 
+Cache-busting
+-------------
+
+Pipeline 1.2+ no longer provides its own cache-busting URL support (using e.g. the ``PIPELINE_VERSIONING`` setting) but uses
+Django's built-in staticfiles support for this. To set up cache-busting in conjunction with ``collectstatic`` as above, use ::
+
+    STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+This will handle cache-busting just as ``staticfiles``'s built-in ``CachedStaticFilesStorage`` does.
 
 Middleware
 ==========
@@ -66,41 +75,14 @@ cache-manifest via `Manifesto <http://manifesto.readthedocs.org/>`_.
 
 To do so, you just need to add manifesto app to your ``INSTALLED_APPS``.
 
-Jinja2
-======
 
-Pipeline also includes Jinja2 support and is used almost identically to the Django
-Template tags implementation.
+Jinja
+=====
 
-.. note::
-  You have to expose the Jinja2 functions provided by pipeline to the Jinja2
-  environment yourself, Pipeline will not do this for you. There are several implementations
-  of Jinja2 for Django, like ``django-ninja`` or ``coffin``.
-
-See the vendor documentation for examples on how to expose functions to the Jinja2 environment
-and pick a solution that best suites your use case.
-
-For more information on Jinja2 see the documentation at http://jinja.pocoo.org/docs/.
-
-Functions
----------
-
-The functions to expose to the Jinja2 environment are: ::
-
-    pipeline.jinja2.ext.compressed_css
-    pipeline.jinja2.ext.compressed_js
-
-Example
--------
-
-To use in the templates: ::
-
-    {{ compressed_css('group_name') }}
-    {{ compressed_js('group_name') }}
-
+Pipeline also includes Jinja2 support and is used almost identically to the Django Template tags implementation.
+You just need to pass ``pipeline.jinja2.ext.PipelineExtension`` to your Jinja2 environment.
 
 Templates
 ---------
 
-Unlike the Django template tag implementation the Jinja2 implementation uses different templates, so if you
-wish to override them please override ``pipeline/css.jinja`` and ``pipeline/js.jinja``.
+Unlike the Django template tag implementation the Jinja2 implementation uses different templates, so if you wish to override them please override pipeline/css.jinja and pipeline/js.jinja.

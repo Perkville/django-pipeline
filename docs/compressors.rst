@@ -33,14 +33,14 @@ To use it for your javascripts add this to your ``PIPELINE_JS_COMPRESSOR`` ::
 
   Additional arguments to use when compressing CSS.
 
-  Defaults to ``''``.
+  Defaults to ``'--terminal'``.
 
 ``PIPELINE_YUGLIFY_JS_ARGUMENTS``
 ---------------------------------
 
   Additional arguments to use when compressing JavaScript.
 
-  Defaults to ``''``.
+  Defaults to ``'--terminal'``.
 
 
 YUI Compressor compressor
@@ -121,7 +121,7 @@ To use it add this to your ``PIPELINE_JS_COMPRESSOR`` ::
 UglifyJS compressor
 ===================
 
-The UglifyJS compressor uses `UglifyJS <https://github.com/mishoo/UglifyJS/>`_ to
+The UglifyJS compressor uses `UglifyJS <https://github.com/mishoo/UglifyJS2/>`_ to
 compress javascripts.
 
 To use it add this to your ``PIPELINE_JS_COMPRESSOR`` ::
@@ -132,8 +132,8 @@ To use it add this to your ``PIPELINE_JS_COMPRESSOR`` ::
 ``PIPELINE_UGLIFYJS_BINARY``
 ----------------------------
 
-  Command line to execute for the Closure Compiler program.
-  You will most likely change this to the location of closure on your system.
+  Command line to execute for the UglifyJS program.
+  You will most likely change this to the location of uglifyjs on your system.
 
   Defaults to ``'/usr/bin/env uglifyjs'``.
 

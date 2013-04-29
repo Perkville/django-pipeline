@@ -2,7 +2,8 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 
-PIPELINE = getattr(settings, 'PIPELINE', not settings.DEBUG)
+DEBUG = getattr(settings, 'DEBUG', False)
+
 PIPELINE_ROOT = getattr(settings, 'PIPELINE_ROOT', settings.STATIC_ROOT)
 PIPELINE_URL = getattr(settings, 'PIPELINE_URL', settings.STATIC_URL)
 
@@ -46,6 +47,9 @@ PIPELINE_CSSMIN_ARGUMENTS = getattr(settings, 'PIPELINE_CSSMIN_ARGUMENTS', '')
 
 PIPELINE_COFFEE_SCRIPT_BINARY = getattr(settings, 'PIPELINE_COFFEE_SCRIPT_BINARY', '/usr/bin/env coffee')
 PIPELINE_COFFEE_SCRIPT_ARGUMENTS = getattr(settings, 'PIPELINE_COFFEE_SCRIPT_ARGUMENTS', '')
+
+PIPELINE_LIVE_SCRIPT_BINARY = getattr(settings, 'PIPELINE_LIVE_SCRIPT_BINARY', '/usr/bin/env lsc')
+PIPELINE_LIVE_SCRIPT_ARGUMENTS = getattr(settings, 'PIPELINE_LIVE_SCRIPT_ARGUMENTS', '')
 
 PIPELINE_SASS_BINARY = getattr(settings, 'PIPELINE_SASS_BINARY', '/usr/bin/env sass')
 PIPELINE_SASS_ARGUMENTS = getattr(settings, 'PIPELINE_SASS_ARGUMENTS', '')
